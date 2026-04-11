@@ -1,0 +1,27 @@
+import mongoose from 'mongoose';
+
+type ConnectionObject = {
+    isConnected?: number;
+    
+};
+const connection: ConnectionObject = {};
+
+const dbConnect = async (): Promise<void> => {
+    if (connection.isConnected) {// Use existing connection if already connected to MongoDB and advantage is that it will not create multiple connections to MongoDB when we have multiple requests to our API to avoid performance issues and memory leaks
+        console.log('Already connected to MongoDB');
+        return;
+    }
+    try {
+        const db = await mongoose.connect(process.env.MONGODB_URI || 
+            '', {})
+
+        connection.isConnected = db.connections[0].readyState;
+        console.log('Connected to MongoDB');
+        }
+        catch (error) {
+            console.error('Error connecting to MongoDB:', error);
+            process.exit(1);
+        }  
+};
+
+export default dbConnect; 
