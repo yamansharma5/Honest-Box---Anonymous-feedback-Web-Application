@@ -20,6 +20,7 @@ export interface user extends Document { // extends Document to include Mongoose
     isverified: boolean;
     verifycode: string;
     verifycodeexpire: Date;
+    isAcceptingMessages: boolean;
     messages: message[];
 }
 
@@ -40,9 +41,10 @@ const userSchema: Schema<user> = new Schema({
         required: [true, 'Verification code expiration date is required.']
     },
     isverified: { type: Boolean, default: false },
+    isAcceptingMessages: { type: Boolean, default: true },
     messages: [messageSchema]
 
 }); 
 
-export const User = mongoose.model<user>('User', userSchema);
+export const User = mongoose.model<user>('User', userSchema);// default export of the User model, which can be imported and used in other parts of the application to interact with the users collection in the MongoDB database. The User model includes all the properties defined in the user interface, as well as the messages subdocument array.
 export const Message = mongoose.model<message>('Message', messageSchema);
