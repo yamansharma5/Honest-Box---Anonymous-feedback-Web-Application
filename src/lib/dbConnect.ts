@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import { validateServerEnv } from "@/lib/env";
 
 type ConnectionObject = {
     isConnected?: number;
@@ -7,6 +8,8 @@ type ConnectionObject = {
 const connection: ConnectionObject = {};
 
 const dbConnect = async (): Promise<void> => {
+    validateServerEnv();
+
     if (connection.isConnected) {// Use existing connection if already connected to MongoDB and advantage is that it will not create multiple connections to MongoDB when we have multiple requests to our API to avoid performance issues and memory leaks
         console.log('Already connected to MongoDB');
         return;

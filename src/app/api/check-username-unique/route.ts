@@ -16,9 +16,7 @@ export async function GET(request: Request){
             username: searchParams.get("username")
         }
 
-        // validate with zod
         const result = UsernameQuerySchema.safeParse(queryParams);
-        console.log(result); //TODO: remove
         if(!result.success){
             const usernameErrors = result.error.format().username?._errors || [];
             return NextResponse.json({
@@ -31,7 +29,7 @@ export async function GET(request: Request){
 
         const existingVerifiedUser = await UserModel.findOne({
             username,
-            isVerified: true
+            isverified: true
         })
 
         if(existingVerifiedUser){

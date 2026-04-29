@@ -4,6 +4,11 @@ import bcrypt from "bcrypt";
 import  dbConnect  from "@/lib/dbConnect";
 import { User } from "@/models/user";
 
+type CredentialInput = {
+    email: string;
+    password: string;
+};
+
 export const authOptions: NextAuthOptions = {
     providers: [
         CredentialsProvider({
@@ -13,12 +18,18 @@ export const authOptions: NextAuthOptions = {
                 email: { label: "email", type: "text", placeholder: "Username" },
                 password :{ label: "Password", type: "password", placeholder: "Password" },
                 },
-            async authorize(credentials: any ): Promise<any> {
+            async authorize(credentials): Promise<{ _id: string; email: string; username: string; isverified: boolean; isAcceptingMessages: boolean; } | null> {
                 await dbConnect();
                 try {
+                    if (!credentials?.email || !credentials?.password) {
+                        throw new Error("Email/username and password are required.");
+                    }
+
+                    const { email, password } = credentials as CredentialInput;
+
                     const user = await User.findOne({ 
-                        $or: [{ email: credentials.email }, 
-                            { username: credentials.email }
+                        $or: [{ email }, 
+                            { username: email }
                         ]
                     });
                     if (!user) {
@@ -28,19 +39,23 @@ export const authOptions: NextAuthOptions = {
                         throw new Error("Email not verified. Please verify your email before logging in.");
                     }
 
-                    const isPasswordValid = await bcrypt.compare(credentials.password, user.password);
+                    const isPasswordValid = await bcrypt.compare(password, user.password);
                     if (!isPasswordValid) {
                         throw new Error("Invalid password.");
                     }
                     return {
-                        id: user._id.toString(),
+                        _id: user._id.toString(),
                         email: user.email,
                         username: user.username,
                         isverified: user.isverified,
+                        isAcceptingMessages: user.isAcceptingMessages,
                     };
-                } catch (error: any) {// why any type is used here is because the error object can have different shapes and properties depending on the source of the error. By using any, we can access the message property without TypeScript throwing an error about it potentially not existing on the error object. This allows us to provide a more informative error message to the client while still handling any unexpected errors gracefully.
+                } catch (error: unknown) {
                     console.error("Error during authentication:", error);
-                    throw new Error(error.message || "An error occurred during authentication.");
+                    const message = error instanceof Error
+                        ? error.message
+                        : "An error occurred during authentication.";
+                    throw new Error(message);
                 }
             }
         })
@@ -52,16 +67,16 @@ export const authOptions: NextAuthOptions = {
     callbacks: {
         async jwt({ token, user }) {
             if (user) {
-                token.id = user.id;
-                token.email = user.email;
-                token.username = user.username;
+                token._id = user._id;
                 token.isverified = user.isverified;
+                token.isAcceptingMessages = user.isAcceptingMessages;
+                token.username = user.username;
             }
             return token;
         },
         async session({ session, token }) {
             if (token) {
-                session.user._id = token.id;
+                session.user._id = token._id;
                 session.user.isverified = token.isverified;
                 session.user.isAcceptingMessages = token.isAcceptingMessages;
                 session.user.username = token.username; 
