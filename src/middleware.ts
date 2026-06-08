@@ -12,9 +12,8 @@ export async function middleware(request: NextRequest) {
   const isAuthPage = ["/sign-in", "/sign-up"].some((p) =>
     pathname.startsWith(p)
   );
-  const isProtectedRoute = ["/dashboard", "/verify"].some((route) =>
-    pathname.startsWith(route)
-  );
+  // /verify is NOT protected — unverified users have no session yet
+  const isProtectedRoute = pathname.startsWith("/dashboard");
 
   // Authenticated user visiting auth pages → redirect to dashboard
   if (token && isAuthPage) {
@@ -32,5 +31,5 @@ export async function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/sign-in", "/sign-up", "/dashboard/:path*", "/verify/:path*"],
+  matcher: ["/sign-in", "/sign-up", "/dashboard/:path*"],
 };
