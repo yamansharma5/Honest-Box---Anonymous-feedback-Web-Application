@@ -5,7 +5,6 @@ export interface message extends Document {
     content: string;
     createdAt: Date;
 }
-//difference between interface and type in typescript is that interface can be extended and implemented by classes, while type cannot. Interface is used to define the shape of an object, while type can be used to define a union or intersection of types. In this case, we use interface to define the shape of the message object, which includes content and createdAt properties.
 const messageSchema: Schema<message> = new Schema({
     content: { type: String, required: true },
     createdAt: { type: Date, default: Date.now }
@@ -46,5 +45,10 @@ const userSchema: Schema<user> = new Schema({
 
 }); 
 
-export const User = mongoose.model<user>('User', userSchema);// default export of the User model, which can be imported and used in other parts of the application to interact with the users collection in the MongoDB database. The User model includes all the properties defined in the user interface, as well as the messages subdocument array.
-export const Message = mongoose.model<message>('Message', messageSchema);
+export const User =
+  (mongoose.models.User as mongoose.Model<user>) ||
+  mongoose.model<user>('User', userSchema);
+
+export const Message =
+  (mongoose.models.Message as mongoose.Model<message>) ||
+  mongoose.model<message>('Message', messageSchema);

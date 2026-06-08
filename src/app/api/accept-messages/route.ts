@@ -31,8 +31,8 @@ export async function POST(request: Request){
         if(!updatedUser){
             return NextResponse.json({
                 success: false,
-                message: "Failed to update user status to accept messages"
-            }, {status: 401})
+                message: "User not found"
+            }, {status: 404})
         }
 
         return NextResponse.json({

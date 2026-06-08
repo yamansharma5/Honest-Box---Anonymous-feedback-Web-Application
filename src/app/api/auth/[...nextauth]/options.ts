@@ -18,7 +18,7 @@ export const authOptions: NextAuthOptions = {
                 email: { label: "email", type: "text", placeholder: "Username" },
                 password :{ label: "Password", type: "password", placeholder: "Password" },
                 },
-            async authorize(credentials): Promise<{ _id: string; email: string; username: string; isverified: boolean; isAcceptingMessages: boolean; } | null> {
+            async authorize(credentials) {
                 await dbConnect();
                 try {
                     if (!credentials?.email || !credentials?.password) {
@@ -27,10 +27,8 @@ export const authOptions: NextAuthOptions = {
 
                     const { email, password } = credentials as CredentialInput;
 
-                    const user = await User.findOne({ 
-                        $or: [{ email }, 
-                            { username: email }
-                        ]
+                    const user = await User.findOne({
+                        $or: [{ email }, { username: email }],
                     });
                     if (!user) {
                         throw new Error("No user found with the provided email or username.");
@@ -44,6 +42,7 @@ export const authOptions: NextAuthOptions = {
                         throw new Error("Invalid password.");
                     }
                     return {
+                        id: user._id.toString(),
                         _id: user._id.toString(),
                         email: user.email,
                         username: user.username,

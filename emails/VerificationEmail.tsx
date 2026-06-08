@@ -35,7 +35,7 @@ export default function VerificationEmail({ username, otp }: VerificationEmailPr
             <Text style={paragraph}>
               This code will expire in 1 hour.
             </Text>
-            <Button style={button} href={`http://localhost:3000/verify/${username}`}>
+            <Button style={button} href={`${process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'}/verify/${username}`}>
               Verify here
             </Button>
           </Section>

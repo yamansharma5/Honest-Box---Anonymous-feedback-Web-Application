@@ -1,6 +1,7 @@
 const REQUIRED_ENV_VARS = [
   "MONGODB_URI",
   "NEXTAUTH_SECRET",
+  "NEXTAUTH_URL",
   "RESEND_API_KEY",
   "OPENAI_API_KEY",
 ] as const;

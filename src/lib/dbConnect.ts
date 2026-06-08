@@ -15,16 +15,13 @@ const dbConnect = async (): Promise<void> => {
         return;
     }
     try {
-        const db = await mongoose.connect(process.env.MONGODB_URI || 
-            '', {})
-
+        const db = await mongoose.connect(process.env.MONGODB_URI!, {});
         connection.isConnected = db.connections[0].readyState;
         console.log('Connected to MongoDB');
-        }
-        catch (error) {
-            console.error('Error connecting to MongoDB:', error);
-            process.exit(1);
-        }  
+    } catch (error) {
+        console.error('Error connecting to MongoDB:', error);
+        throw new Error('Failed to connect to MongoDB');
+    }  
 };
 
 export default dbConnect; 
