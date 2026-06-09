@@ -1,36 +1,80 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# HonestBox
 
-## Getting Started
+A simple Next.js college project for receiving anonymous feedback through a public profile link. Users create an account, verify their email, share their link, and read messages from their private dashboard.
 
-First, run the development server:
+## Problem Statement
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+People often avoid giving honest feedback when their identity is visible. This can make it difficult for students, creators, teams, or individuals to collect genuine opinions and suggestions.
+
+This project solves that problem by providing a simple anonymous feedback platform where users can share one public link and receive private messages without exposing the sender's identity.
+
+## Main Features
+
+- Anonymous public feedback submission
+- Secure message storage in MongoDB
+- Credentials authentication with NextAuth
+- Email verification with Resend
+- Private dashboard for reading and deleting messages
+- Inbox open/close toggle
+
+## Tech Stack
+
+- Next.js App Router
+- React
+- TypeScript
+- MongoDB with Mongoose
+- NextAuth
+- Resend
+- Tailwind CSS
+
+## Environment Variables
+
+Create a `.env` file locally and add these values:
+
+```env
+MONGODB_URI=mongodb+srv://<user>:<password>@cluster.mongodb.net/<dbname>?retryWrites=true&w=majority
+NEXTAUTH_SECRET=your_random_secret_here
+NEXTAUTH_URL=http://localhost:3000
+RESEND_API_KEY=re_your_resend_api_key
+NEXT_PUBLIC_APP_URL=http://localhost:3000
+
+# Optional: only needed for AI message suggestions
+OPENAI_API_KEY=sk-your_openai_api_key
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+For production, set `NEXTAUTH_URL` and `NEXT_PUBLIC_APP_URL` to your deployed app URL.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Local Development
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npm install
+npm run dev
+```
 
-## Learn More
+Open `http://localhost:3000`.
 
-To learn more about Next.js, take a look at the following resources:
+## Production Check
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Run these before deploying:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```bash
+npm run lint
+npm run build
+```
 
-## Deploy on Vercel
+## Recommended Deployment
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Use **Vercel** for this project. It is the best fit because the app is built with Next.js, supports API routes easily, and has simple environment variable management.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Suggested services:
+
+- App hosting: Vercel
+- Database: MongoDB Atlas
+- Email: Resend
+
+After deployment, add the Vercel domain to:
+
+- `NEXTAUTH_URL`
+- `NEXT_PUBLIC_APP_URL`
+
+Also make sure MongoDB Atlas allows connections from Vercel. For a college project, allowing access from `0.0.0.0/0` is common and simple, but a stricter IP/network setup is better for production.

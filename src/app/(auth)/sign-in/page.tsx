@@ -50,7 +50,7 @@ function SignInForm() {
 				<div className="relative flex flex-col justify-between bg-[#132a24] p-8 text-[#f4efe6] sm:p-10 lg:p-12">
 					<div className="space-y-6">
 						<p className="inline-flex w-fit items-center rounded-full border border-white/25 px-3 py-1 text-xs uppercase tracking-[0.18em] text-[#ffedd5]">
-							Anonymous Platform
+							HonestBox
 						</p>
 						<h1 className="max-w-md text-4xl font-semibold leading-tight sm:text-5xl">
 							Honest messages, zero pressure.

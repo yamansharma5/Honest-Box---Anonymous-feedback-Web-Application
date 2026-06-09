@@ -20,6 +20,13 @@ export async function POST() {
     }
 
     try {
+        if(!process.env.OPENAI_API_KEY){
+            return NextResponse.json({
+                success: false,
+                message: "Message suggestions are not configured."
+            }, {status: 503})
+        }
+
         const prompt = `
         Create a list of 3 open-ended and engaging questions that can be used to start a conversation with a new person on a social platform.
         The questions should be suitable for a social or professional networking context.

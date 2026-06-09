@@ -14,7 +14,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Anonymous Platform",
+  title: "HonestBox",
   description: "Receive anonymous messages with privacy-first controls.",
 };
 

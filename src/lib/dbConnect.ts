@@ -25,7 +25,7 @@ async function connectToMongoDB() {
 }
 
 const dbConnect = async (): Promise<void> => {
-    validateServerEnv();
+    validateServerEnv(["MONGODB_URI"]);
 
     if (connection.isConnected) {// Use existing connection if already connected to MongoDB and advantage is that it will not create multiple connections to MongoDB when we have multiple requests to our API to avoid performance issues and memory leaks
         console.log('Already connected to MongoDB');

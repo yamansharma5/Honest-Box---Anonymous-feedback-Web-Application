@@ -29,7 +29,7 @@ export default function Home() {
         <header className="flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
           <div className="max-w-3xl space-y-5">
             <p className="inline-flex w-fit items-center rounded-full border border-black/15 bg-white/80 px-3 py-1 text-xs font-semibold uppercase tracking-[0.16em] text-[#0f766e]">
-              Anonymous Platform
+              HonestBox
             </p>
             <h1 className="text-4xl font-semibold leading-tight text-[#102a43] sm:text-5xl lg:text-6xl">
               Collect honest feedback

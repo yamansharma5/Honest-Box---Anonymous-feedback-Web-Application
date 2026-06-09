@@ -4,28 +4,37 @@ import dbConnect from "@/lib/dbConnect";
 import { User as UserModel } from "@/models/user";
 import { User } from "next-auth";
 import {NextResponse} from "next/server";
+import { acceptMessageSchema } from "@/schemas/acceptMessageSchema";
 
 export async function POST(request: Request){
-    await dbConnect();
-
-    const session = await getServerSession(authOptions);
-    const user: User = session?.user as User;
-
-    if(!session || !session.user){
-        return NextResponse.json({
-            success: false,
-            message: "Not authenticated"
-        }, {status: 401})
-    }
-
-    const userId = user._id;
-    const {acceptMessages} = await request.json();
-
     try {
+        await dbConnect();
+
+        const session = await getServerSession(authOptions);
+        const user: User = session?.user as User;
+
+        if(!session || !session.user){
+            return NextResponse.json({
+                success: false,
+                message: "Not authenticated"
+            }, {status: 401})
+        }
+
+        const parsed = acceptMessageSchema.safeParse(await request.json());
+        if(!parsed.success){
+            return NextResponse.json({
+                success: false,
+                message: parsed.error.issues.map((issue) => issue.message).join(", ")
+            }, {status: 400})
+        }
+
+        const userId = user._id;
+        const {acceptMessages} = parsed.data;
+
         const updatedUser = await UserModel.findByIdAndUpdate(
             userId,
             {isAcceptingMessages: acceptMessages},
-            {new: true}
+            {returnDocument: "after", projection: {isAcceptingMessages: 1}}
         )
 
         if(!updatedUser){
@@ -38,11 +47,11 @@ export async function POST(request: Request){
         return NextResponse.json({
             success: true,
             message: "Message acceptance status updated successfully",
-            updatedUser
+            isAcceptingMessages: updatedUser.isAcceptingMessages
         }, {status: 200})
 
-    } catch {
-        console.error("Failed to update user status to accept messages");
+    } catch (error) {
+        console.error("Failed to update user status to accept messages", error);
         return NextResponse.json({
             success: false,
             message: "Failed to update user status to accept messages"
@@ -51,22 +60,20 @@ export async function POST(request: Request){
 }
 
 export async function GET(){
-    await dbConnect();
-
-    const session = await getServerSession(authOptions);
-    const user: User = session?.user as User;
-
-    if(!session || !session.user){
-        return NextResponse.json({
-            success: false,
-            message: "Not authenticated"
-        }, {status: 401})
-    }
-
-    const userId = user._id;
-
     try {
-        const foundUser = await UserModel.findById(userId);
+        await dbConnect();
+
+        const session = await getServerSession(authOptions);
+        const user: User = session?.user as User;
+
+        if(!session || !session.user){
+            return NextResponse.json({
+                success: false,
+                message: "Not authenticated"
+            }, {status: 401})
+        }
+
+        const foundUser = await UserModel.findById(user._id, {isAcceptingMessages: 1});
     
         if(!foundUser){
             return NextResponse.json({
@@ -79,8 +86,8 @@ export async function GET(){
             success: true,
             isAcceptingMessages: foundUser.isAcceptingMessages
         }, {status: 200})
-    } catch {
-        console.error("Error in getting message acceptance status");
+    } catch (error) {
+        console.error("Error in getting message acceptance status", error);
         return NextResponse.json({
             success: false,
             message: "Error in getting message acceptance status"

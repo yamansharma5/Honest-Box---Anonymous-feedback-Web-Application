@@ -91,7 +91,7 @@ export default function SignUpPage() {
         <div className="flex flex-col justify-between bg-[#0f766e] p-8 text-white sm:p-10 lg:p-12">
           <div className="space-y-5">
             <p className="inline-flex w-fit items-center rounded-full border border-white/25 px-3 py-1 text-xs uppercase tracking-widest text-white/80">
-              Anonymous Platform
+              HonestBox
             </p>
             <h1 className="max-w-xs text-4xl font-semibold leading-tight sm:text-5xl">
               Your private inbox starts here.
