@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import { validateServerEnv } from "@/lib/env";
 import AuthProvider from "@/components/AuthProvider";
 
 const geistSans = Geist({
@@ -18,8 +17,6 @@ export const metadata: Metadata = {
   title: "Anonymous Platform",
   description: "Receive anonymous messages with privacy-first controls.",
 };
-
-validateServerEnv();
 
 export default function RootLayout({
   children,

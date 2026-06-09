@@ -8,9 +8,9 @@ const UsernameQuerySchema = z.object({
 })
 
 export async function GET(request: Request){
-    await dbConnect();
-
     try {
+        await dbConnect();
+
         const {searchParams} = new URL(request.url);
         const queryParams = {
             username: searchParams.get("username")
@@ -48,7 +48,9 @@ export async function GET(request: Request){
         console.error("Error checking username", error);
         return NextResponse.json({
             success: false,
-            message: "Error checking username"
+            message: error instanceof Error && error.message === "Failed to connect to MongoDB"
+                ? "Could not connect to the database. Please check your MongoDB connection."
+                : "Error checking username"
         },
     {
         status: 500

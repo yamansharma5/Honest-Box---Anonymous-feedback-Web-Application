@@ -1,0 +1,232 @@
+Error connecting to MongoDB: Error: querySrv ECONNREFUSED _mongodb._tcp.cluster0.wmz6ltk.mongodb.net
+    at ignore-listed frames {
+  errno: undefined,
+  code: 'ECONNREFUSED',
+  syscall: 'querySrv',
+  hostname: '_mongodb._tcp.cluster0.wmz6ltk.mongodb.net'
+}
+⨯ Error: Failed to connect to MongoDB
+    at dbConnect (src\lib\dbConnect.ts:23:15)
+    at async GET (src\app\api\check-username-unique\route.ts:11:5)
+  21 |     } catch (error) {
+  22 |         console.error('Error connecting to MongoDB:', error);
+> 23 |         throw new Error('Failed to connect to MongoDB');
+     |               ^
+  24 |     }  
+  25 | };
+  26 |
+Error connecting to MongoDB: Error: querySrv ECONNREFUSED _mongodb._tcp.cluster0.wmz6ltk.mongodb.net
+    at ignore-listed frames {
+  errno: undefined,
+  code: 'ECONNREFUSED',
+  syscall: 'querySrv',
+  hostname: '_mongodb._tcp.cluster0.wmz6ltk.mongodb.net'
+}
+⨯ Error: Failed to connect to MongoDB
+    at dbConnect (src\lib\dbConnect.ts:23:15)
+    at async GET (src\app\api\check-username-unique\route.ts:11:5)
+  21 |     } catch (error) {
+  22 |         console.error('Error connecting to MongoDB:', error);
+> 23 |         throw new Error('Failed to connect to MongoDB');
+     |               ^
+  24 |     }  
+  25 | };
+  26 |
+Error connecting to MongoDB: Error: querySrv ECONNREFUSED _mongodb._tcp.cluster0.wmz6ltk.mongodb.net
+    at ignore-listed frames {
+  errno: undefined,
+  code: 'ECONNREFUSED',
+  syscall: 'querySrv',
+  hostname: '_mongodb._tcp.cluster0.wmz6ltk.mongodb.net'
+}
+⨯ Error: Failed to connect to MongoDB
+    at dbConnect (src\lib\dbConnect.ts:23:15)
+    at async GET (src\app\api\check-username-unique\route.ts:11:5)
+  21 |     } catch (error) {
+  22 |         console.error('Error connecting to MongoDB:', error);
+> 23 |         throw new Error('Failed to connect to MongoDB');
+     |               ^
+  24 |     }  
+  25 | };
+  26 |
+Error connecting to MongoDB: Error: querySrv ECONNREFUSED _mongodb._tcp.cluster0.wmz6ltk.mongodb.net
+    at ignore-listed frames {
+  errno: undefined,
+  code: 'ECONNREFUSED',
+  syscall: 'querySrv',
+  hostname: '_mongodb._tcp.cluster0.wmz6ltk.mongodb.net'
+}
+⨯ Error: Failed to connect to MongoDB
+    at dbConnect (src\lib\dbConnect.ts:23:15)
+    at async POST (src\app\api\sign-up\route.ts:10:5)
+  21 |     } catch (error) {
+  22 |         console.error('Error connecting to MongoDB:', error);
+> 23 |         throw new Error('Failed to connect to MongoDB');
+     |               ^
+  24 |     }  
+  25 | };
+  26 |
+Error connecting to MongoDB: Error: querySrv ECONNREFUSED _mongodb._tcp.cluster0.wmz6ltk.mongodb.net
+    at ignore-listed frames {
+  errno: undefined,
+  code: 'ECONNREFUSED',
+  syscall: 'querySrv',
+  hostname: '_mongodb._tcp.cluster0.wmz6ltk.mongodb.net'
+}
+Error checking username Error: Failed to connect to MongoDB
+    at dbConnect (src\lib\dbConnect.ts:23:15)
+    at async GET (src\app\api\check-username-unique\route.ts:12:9)
+  21 |     } catch (error) {
+  22 |         console.error('Error connecting to MongoDB:', error);
+> 23 |         throw new Error('Failed to connect to MongoDB');
+     |               ^
+  24 |     }  
+  25 | };
+  26 |
+Error connecting to MongoDB: Error: querySrv ECONNREFUSED _mongodb._tcp.cluster0.wmz6ltk.mongodb.net
+    at ignore-listed frames {
+  errno: undefined,
+  code: 'ECONNREFUSED',
+  syscall: 'querySrv',
+  hostname: '_mongodb._tcp.cluster0.wmz6ltk.mongodb.net'
+}
+Error during sign-up: Error: Failed to connect to MongoDB
+    at dbConnect (src\lib\dbConnect.ts:23:15)
+    at async POST (src\app\api\sign-up\route.ts:11:9)
+  21 |     } catch (error) {
+  22 |         console.error('Error connecting to MongoDB:', error);
+> 23 |         throw new Error('Failed to connect to MongoDB');
+     |               ^
+  24 |     }  
+  25 | };
+  26 |
+Error connecting to MongoDB: Error: querySrv ECONNREFUSED _mongodb._tcp.cluster0.wmz6ltk.mongodb.net
+    at ignore-listed frames {
+  errno: undefined,
+  code: 'ECONNREFUSED',
+  syscall: 'querySrv',
+  hostname: '_mongodb._tcp.cluster0.wmz6ltk.mongodb.net'
+}
+Error during sign-up: Error: Failed to connect to MongoDB
+    at dbConnect (src\lib\dbConnect.ts:23:15)
+    at async POST (src\app\api\sign-up\route.ts:11:9)
+  21 |     } catch (error) {
+  22 |         console.error('Error connecting to MongoDB:', error);
+> 23 |         throw new Error('Failed to connect to MongoDB');
+     |               ^
+  24 |     }  
+  25 | };
+  26 |
+Error connecting to MongoDB: Error: querySrv ECONNREFUSED _mongodb._tcp.cluster0.wmz6ltk.mongodb.net
+    at ignore-listed frames {
+  errno: undefined,
+  code: 'ECONNREFUSED',
+  syscall: 'querySrv',
+  hostname: '_mongodb._tcp.cluster0.wmz6ltk.mongodb.net'
+}
+Error during sign-up: Error: Failed to connect to MongoDB
+    at dbConnect (src\lib\dbConnect.ts:23:15)
+    at async POST (src\app\api\sign-up\route.ts:11:9)
+  21 |     } catch (error) {
+  22 |         console.error('Error connecting to MongoDB:', error);
+> 23 |         throw new Error('Failed to connect to MongoDB');
+     |               ^
+  24 |     }  
+  25 | };
+  26 |
+MongoDB SRV DNS lookup was refused. Retrying with fallback DNS servers.
+Error during sign-up: SyntaxError: Expected property name or '}' in JSON at position 1 (line 1 column 2)
+    at JSON.parse (<anonymous>)
+Error sending verification email: Error: Failed to render React component. Make sure to install `@react-email/render` or `@react-email/components`.
+    at async sendVerificationEmail (src\helpers\send-verification-email.ts:11:5)
+    at async POST (src\app\api\sign-up\route.ts:56:31)
+   9 | ): Promise<ApiResponse> {
+  10 |   try {
+> 11 |     await resendClient.emails.send({
+     |     ^
+  12 |       from: 'onboarding@resend.dev',
+  13 |       to: email,
+  14 |       subject: 'Verification Code',
+Error during authentication: Error: Email not verified. Please verify your email before logging in.
+    at Object.authorize (src\app\api\auth\[...nextauth]\options.ts:38:31)
+  36 |                     }
+  37 |                     if (!user.isverified) {
+> 38 |                         throw new Error("Email not verified. Please verify your email befo...
+     |                               ^
+  39 |                     }
+  40 |
+  41 |                     const isPasswordValid = await bcrypt.compare(password, user.password);
+Error during sign-up: SyntaxError: Expected property name or '}' in JSON at position 1 (line 1 column 2)
+    at JSON.parse (<anonymous>)
+Error [AI_APICallError]: Incorrect API key provided: sk-XXXXX***********************************XXXX. You can find your API key at https://platform.openai.com/account/api-keys.
+    at ignore-listed frames {
+  cause: undefined,
+  url: 'https://api.openai.com/v1/responses',
+  requestBodyValues: {
+    model: 'gpt-4-turbo',
+    input: [ [Object] ],
+    temperature: undefined,
+    top_p: undefined,
+    max_output_tokens: undefined,
+    conversation: undefined,
+    max_tool_calls: undefined,
+    metadata: undefined,
+    parallel_tool_calls: undefined,
+    previous_response_id: undefined,
+    store: undefined,
+    user: undefined,
+    instructions: undefined,
+    service_tier: undefined,
+    include: undefined,
+    prompt_cache_key: undefined,
+    prompt_cache_retention: undefined,
+    safety_identifier: undefined,
+    top_logprobs: undefined,
+    truncation: undefined,
+    tools: undefined,
+    tool_choice: undefined,
+    stream: true
+  },
+  statusCode: 401,
+  responseHeaders: {
+    'access-control-expose-headers': 'X-Request-ID, CF-Ray, CF-Ray',
+    'alt-svc': 'h3=":443"; ma=86400',
+    'cf-cache-status': 'DYNAMIC',
+    'cf-ray': 'a08a7210ce39551f-DEL',
+    connection: 'keep-alive',
+    'content-length': '293',
+    'content-type': 'text/plain',
+    date: 'Mon, 08 Jun 2026 19:53:57 GMT',
+    server: 'cloudflare',
+    'set-cookie': '_cfuvid=j0ap.Can6Yen922RbOInEcebJsBoe7mxuWmKnQLmBZ8-1780948436.6054006-1.0.1.1-smF1qJb5QvB8Fz4sI2G0ls2l50cb4Y0KvAytBZ7.TSc; HttpOnly; SameSite=None; Secure; Path=/; Domain=api.openai.com',
+    'strict-transport-security': 'max-age=31536000; includeSubDomains; preload',
+    'x-content-type-options': 'nosniff',
+    'x-error-json': 'ewogICJlcnJvciI6IHsKICAgICJtZXNzYWdlIjogIkluY29ycmVjdCBBUEkga2V5IHByb3ZpZGVkOiBzay1YWFhYWCoqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqWFhYWC4gWW91IGNhbiBmaW5kIHlvdXIgQVBJIGtleSBhdCBodHRwczovL3BsYXRmb3JtLm9wZW5haS5jb20vYWNjb3VudC9hcGkta2V5cy4iLAogICAgInR5cGUiOiAiaW52YWxpZF9yZXF1ZXN0X2Vycm9yIiwKICAgICJjb2RlIjogImludmFsaWRfYXBpX2tleSIsCiAgICAicGFyYW0iOiBudWxsCiAgfSwKICAic3RhdHVzIjogNDAxCn0=',
+    'x-openai-authorization-error': '401',
+    'x-openai-ide-error-code': 'invalid_api_key',
+    'x-openai-internal-caller': 'unknown_through_ide',
+    'x-openai-proxy-wasm': 'v0.1',
+    'x-request-id': 'req_c21f4c17386d42e48189bb1807e6cc5b'
+  },
+  responseBody: '{\n' +
+    '  "error": {\n' +
+    '    "message": "Incorrect API key provided: sk-XXXXX***********************************XXXX. You can find your API key at https://platform.openai.com/account/api-keys.",\n' +
+    '    "type": "invalid_request_error",\n' +
+    '    "code": "invalid_api_key",\n' +
+    '    "param": null\n' +
+    '  },\n' +
+    '  "status": 401\n' +
+    '}',
+  isRetryable: false,
+  data: {
+    error: {
+      message: 'Incorrect API key provided: sk-XXXXX***********************************XXXX. You can find your API key at https://platform.openai.com/account/api-keys.',
+      type: 'invalid_request_error',
+      param: null,
+      code: 'invalid_api_key'
+    }
+  }
+}
+(node:18540) [MONGOOSE] Warning: mongoose: the `new` option for `findOneAndUpdate()` and `findOneAndReplace()` is deprecated. Use `returnDocument: 'after'` instead.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:18540) [MONGOOSE] Warning: mongoose: the `new` option for `findOneAndUpdate()` and `findOneAndReplace()` is deprecated. Use `returnDocument: 'after'` instead.

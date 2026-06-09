@@ -3,9 +3,9 @@ import { User as UserModel } from "@/models/user";
 import {NextResponse} from "next/server";
 
 export async function POST(request: Request){
-    await dbConnect();
-
     try {
+        await dbConnect();
+
         const {username, code} = await request.json();
 
         const decodedUsername = decodeURIComponent(username);
@@ -47,7 +47,9 @@ export async function POST(request: Request){
         console.error("Error verifying user", error);
         return NextResponse.json({
             success: false,
-            message: "Error verifying user"
+            message: error instanceof Error && error.message === "Failed to connect to MongoDB"
+                ? "Could not connect to the database. Please check your MongoDB connection."
+                : "Error verifying user"
         },
     {
         status: 500

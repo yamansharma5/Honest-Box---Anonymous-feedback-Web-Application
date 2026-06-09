@@ -7,9 +7,9 @@ import { signUpSchema } from "@/schemas/signUpSchema";
 import { sendVerificationEmail } from "@/helpers/send-verification-email";
 
 export async function POST(request: NextRequest) {
-    await dbConnect();
-
     try {
+        await dbConnect();
+
         const body = await request.json();
         const parsed = signUpSchema.safeParse(body);
         if (!parsed.success) {
@@ -67,8 +67,12 @@ export async function POST(request: NextRequest) {
         });
     } catch (error) {
         console.error('Error during sign-up:', error);
+        const message = error instanceof Error && error.message === 'Failed to connect to MongoDB'
+            ? 'Could not connect to the database. Please check your MongoDB connection.'
+            : 'An error occurred during sign-up.';
+
         return NextResponse.json<ApiResponse>(
-            { success: false, message: 'An error occurred during sign-up.' },
+            { success: false, message },
             { status: 500 }
         );
     }

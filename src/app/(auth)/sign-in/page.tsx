@@ -3,11 +3,11 @@
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { signIn } from "next-auth/react";
-import { FormEvent, useMemo, useState } from "react";
+import { FormEvent, Suspense, useMemo, useState } from "react";
 
-export default function SignInPage() {
+function SignInForm() {
 	const router = useRouter();
-	const searchParams = useSearchParams();// The useSearchParams hook allows us to access query parameters from the URL. In this case, we are looking for a callbackUrl parameter that indicates where the user should be redirected after a successful sign-in. If the callbackUrl is not provided, we default to "/dashboard". By using useMemo, we ensure that the callbackUrl is only recalculated when the searchParams change, optimizing performance and preventing unnecessary re-renders.
+	const searchParams = useSearchParams();
 
 	const callbackUrl = useMemo(
 		() => searchParams.get("callbackUrl") || "/dashboard",
@@ -137,5 +137,13 @@ export default function SignInPage() {
 				</div>
 			</section>
 		</main>
+	);
+}
+
+export default function SignInPage() {
+	return (
+		<Suspense fallback={null}>
+			<SignInForm />
+		</Suspense>
 	);
 }

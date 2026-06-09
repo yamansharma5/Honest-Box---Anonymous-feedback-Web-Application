@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState, useEffect, useCallback } from "react";
 
-type UsernameStatus = "idle" | "checking" | "available" | "taken" | "invalid";
+type UsernameStatus = "idle" | "checking" | "available" | "taken" | "invalid" | "error";
 
 export default function SignUpPage() {
   const router = useRouter();
@@ -31,11 +31,11 @@ export default function SignUpPage() {
         `/api/check-username-unique?username=${encodeURIComponent(value)}`
       );
       const data = await res.json();
-      setUsernameStatus(data.success ? "available" : "taken");
+      setUsernameStatus(data.success ? "available" : res.status >= 500 ? "error" : "taken");
       setUsernameMsg(data.message);
     } catch {
-      setUsernameStatus("idle");
-      setUsernameMsg("");
+      setUsernameStatus("error");
+      setUsernameMsg("Could not check username right now.");
     }
   }, []);
 
@@ -76,7 +76,7 @@ export default function SignUpPage() {
   const usernameHintColor =
     usernameStatus === "available"
       ? "text-emerald-600"
-      : usernameStatus === "taken" || usernameStatus === "invalid"
+      : usernameStatus === "taken" || usernameStatus === "invalid" || usernameStatus === "error"
       ? "text-red-600"
       : "text-slate-500";
 

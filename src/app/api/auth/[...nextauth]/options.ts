@@ -19,8 +19,9 @@ export const authOptions: NextAuthOptions = {
                 password :{ label: "Password", type: "password", placeholder: "Password" },
                 },
             async authorize(credentials) {
-                await dbConnect();
                 try {
+                    await dbConnect();
+
                     if (!credentials?.email || !credentials?.password) {
                         throw new Error("Email/username and password are required.");
                     }

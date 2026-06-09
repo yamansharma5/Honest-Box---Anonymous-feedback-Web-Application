@@ -3,6 +3,7 @@
 import { useSession, signOut } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useEffect, useState, useCallback } from "react";
+import Toast from "@/components/Toast";
 
 interface Message {
   _id: string;
@@ -88,11 +89,18 @@ export default function DashboardPage() {
   };
 
   const handleDelete = async (id: string) => {
+    // optimistic delete
     setDeletingId(id);
+    const previous = messages;
+    setMessages((prev) => prev.filter((m) => m._id !== id));
     try {
-      await fetch(`/api/messages?messageId=${id}`, { method: "DELETE" });
-      setMessages((prev) => prev.filter((m) => m._id !== id));
+      const res = await fetch(`/api/messages?messageId=${id}`, { method: "DELETE" });
+      if (!res.ok) {
+        throw new Error("Delete failed");
+      }
+      showToast("Message deleted");
     } catch {
+      setMessages(previous);
       showToast("Failed to delete message.");
     } finally {
       setDeletingId(null);
@@ -145,11 +153,7 @@ export default function DashboardPage() {
   return (
     <div className="min-h-screen bg-slate-50">
       {/* Toast */}
-      {toast && (
-        <div className="fixed bottom-6 left-1/2 z-50 -translate-x-1/2 rounded-xl border border-slate-200 bg-white px-5 py-3 text-sm font-medium text-slate-800 shadow-lg">
-          {toast}
-        </div>
-      )}
+      <Toast message={toast} open={!!toast} onClose={() => setToast("")} />
 
       {/* Top nav */}
       <header className="sticky top-0 z-40 border-b border-slate-200 bg-white">

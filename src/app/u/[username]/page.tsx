@@ -2,6 +2,7 @@
 
 import { useParams } from "next/navigation";
 import { useState, useEffect } from "react";
+import Toast from "@/components/Toast";
 import Link from "next/link";
 
 interface ProfileStatus {
@@ -20,6 +21,8 @@ export default function PublicProfilePage() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState("");
+  const [toast, setToast] = useState("");
+  const [toastOpen, setToastOpen] = useState(false);
 
   const [suggestions, setSuggestions] = useState<string[]>([]);
   const [loadingSuggestions, setLoadingSuggestions] = useState(false);
@@ -82,12 +85,18 @@ export default function PublicProfilePage() {
       const data = await res.json();
       if (!data.success) {
         setError(data.message || "Failed to send message.");
+        setToast(data.message || "Failed to send message.");
+        setToastOpen(true);
       } else {
         setSubmitted(true);
         setContent("");
+        setToast("Message sent!");
+        setToastOpen(true);
       }
     } catch {
       setError("An unexpected error occurred. Please try again.");
+      setToast("An unexpected error occurred. Please try again.");
+      setToastOpen(true);
     } finally {
       setIsSubmitting(false);
     }
@@ -224,6 +233,9 @@ export default function PublicProfilePage() {
             </form>
           )}
         </div>
+
+          {/* Toast */}
+          <Toast message={toast} open={toastOpen} onClose={() => setToastOpen(false)} />
 
         {/* AI suggestions */}
         <div className="mt-6">
