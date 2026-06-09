@@ -16,12 +16,21 @@ export async function sendVerificationEmail(
   verifyCode: string
 ): Promise<ApiResponse> {
   try {
+    if (!process.env.RESEND_API_KEY) {
+      throw new Error('RESEND_API_KEY is not configured.');
+    }
+
+    const fromEmail = process.env.RESEND_FROM_EMAIL;
+    if (!fromEmail) {
+      throw new Error('RESEND_FROM_EMAIL is not configured.');
+    }
+
     const verificationUrl = `${process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'}/verify/${encodeURIComponent(username)}`;
     const safeUsername = escapeHtml(username);
     const safeVerifyCode = escapeHtml(verifyCode);
 
-    await resendClient.emails.send({
-      from: 'onboarding@resend.dev',
+    const { error } = await resendClient.emails.send({
+      from: fromEmail,
       to: email,
       subject: 'Verification Code',
       html: `
@@ -40,6 +49,11 @@ export async function sendVerificationEmail(
       `,
       text: `Hi ${username}, your verification code is ${verifyCode}. It expires in 1 hour. Verify here: ${verificationUrl}`,
     });
+
+    if (error) {
+      throw new Error(error.message);
+    }
+
     return { success: true, message: 'Verification email sent successfully.' };
   } catch (emailError) {
     console.error('Error sending verification email:', emailError);

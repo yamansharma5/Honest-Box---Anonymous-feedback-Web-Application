@@ -36,6 +36,7 @@ MONGODB_URI=mongodb+srv://<user>:<password>@cluster.mongodb.net/<dbname>?retryWr
 NEXTAUTH_SECRET=your_random_secret_here
 NEXTAUTH_URL=http://localhost:3000
 RESEND_API_KEY=re_your_resend_api_key
+RESEND_FROM_EMAIL=HonestBox <verify@your-verified-domain.com>
 NEXT_PUBLIC_APP_URL=http://localhost:3000
 
 # Optional: only needed for AI message suggestions
@@ -43,6 +44,7 @@ OPENAI_API_KEY=sk-your_openai_api_key
 ```
 
 For production, set `NEXTAUTH_URL` and `NEXT_PUBLIC_APP_URL` to your deployed app URL.
+In Resend, add and verify your own sending domain, then set `RESEND_FROM_EMAIL` to an address on that verified domain, for example `HonestBox <verify@example.com>`. Do not use `onboarding@resend.dev` for real users; Resend only allows that testing domain to send to your own Resend account email.
 
 ## Local Development
 
@@ -76,5 +78,7 @@ After deployment, add the Vercel domain to:
 
 - `NEXTAUTH_URL`
 - `NEXT_PUBLIC_APP_URL`
+- `RESEND_API_KEY`
+- `RESEND_FROM_EMAIL`
 
 Also make sure MongoDB Atlas allows connections from Vercel. For a college project, allowing access from `0.0.0.0/0` is common and simple, but a stricter IP/network setup is better for production.
